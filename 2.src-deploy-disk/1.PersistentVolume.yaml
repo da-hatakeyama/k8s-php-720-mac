@@ -10,4 +10,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: hostpath
   hostPath:
-    path: /Users/tadanobu/Documents/Kubernetes/php-720/2.src-deploy-disk/storage
+    path: /Users/tadanobu/Documents/Kubernetes/k8s-php-720-mac/2.src-deploy-disk/storage
