@@ -19,7 +19,7 @@ RUN cp /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf /opt/rh/httpd24/root/etc/h
 RUN mkdir -p /opt/rh/httpd24/root/etc/httpd/Includes
 COPY ./Includes /opt/rh/httpd24/root/etc/httpd/Includes
 
-# SSL’ÊM‚·‚éÛ‚Í‚±‚±‚ð—LŒø‚É‚·‚é
+# SSLï¿½ÊMï¿½ï¿½ï¿½ï¿½Û‚Í‚ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 # RUN mkdir -p /etc/httpd/ssl
 # COPY ./ssl /etc/httpd/ssl
 
@@ -28,11 +28,11 @@ RUN sed -i "s/    DirectoryIndex index.html/    DirectoryIndex index.php/" /opt/
 RUN sed -i "s/#ServerName www.example.com:80/ServerName localhost:80/" /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
 RUN sed -i "s/Listen 80/Listen 80\nListen 10080/" /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
 
-RUN echo "# ƒNƒŠƒbƒNƒWƒƒƒbƒLƒ“ƒO‘Îô" >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
+RUN echo "# ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Wï¿½ï¿½ï¿½bï¿½Lï¿½ï¿½ï¿½Oï¿½Îï¿½" >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
 RUN echo "Header always append X-Frame-Options SAMEORIGIN" \
     >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
 
-RUN echo "# XSS‘Îô" >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
+RUN echo "# XSSï¿½Îï¿½" >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
 RUN echo "Header set X-XSS-Protection '1; mode=block'" \
     >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf
 RUN echo "Header set X-Content-Type-Options nosniff" \
@@ -46,12 +46,12 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/opt/rh/httpd24/root/usr/lib64
 ENV PATH $PATH:/opt/rh/httpd24/root/usr/sbin
 
 
-# Œ¾Œê‚ð“ú–{Œê‚ÉÝ’è
+# ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ÉÝ’ï¿½
 RUN localedef -i ja_JP -f UTF-8 ja_JP.UTF-8
 RUN echo 'LANG="ja_JP.UTF-8"' >  /etc/locale.conf
 ENV LANG ja_JP.UTF-8
 
-# “ú•t‚ð“ú–{Œê‚ÉÝ’è
+# ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ÉÝ’ï¿½
 RUN echo 'ZONE="Asia/Tokyo"' > /etc/sysconfig/clock
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime

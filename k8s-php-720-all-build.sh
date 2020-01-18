@@ -56,9 +56,14 @@ cd ~/Documents/Kubernetes/k8s-php-720-mac/7.php5-rebuild
 cd ~/Documents/Kubernetes/k8s-php-720-mac/8.apache-rebuild
 ./skaffold_run.sh
 
+#### ＜nuxt構築＞
+##### nuxtイメージビルド
+cd ~/Documents/Kubernetes/k8s-php-720-mac/9.nuxt-rebuild
+./skaffold_run.sh
+
 #### ＜mailsv構築＞
 ##### mailsvイメージビルド
-cd ~/Documents/Kubernetes/k8s-php-720-mac/9.mailsv-rebuild
+cd ~/Documents/Kubernetes/k8s-php-720-mac/10.mailsv-rebuild
 kubectl apply -f ./k8s-mailsv-sv.yaml
 
 #### ＜ingressを構築＞
@@ -66,7 +71,7 @@ kubectl apply -f ./k8s-mailsv-sv.yaml
 ##### 参考サイト：https://kubernetes.github.io/ingress-nginx/deploy/
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/cloud-generic.yaml
-cd ~/Documents/Kubernetes/k8s-php-720-mac/10.ingress
+cd ~/Documents/Kubernetes/k8s-php-720-mac/11.ingress
 
 #### sslの鍵登録 ※HTTPSを使用する際は実施
 ##### kubectl create secret tls example1.co.jp --key ../8.apache-rebuild/ssl/example1.co.jp/svrkey-sample-empty.key --cert ../8.apache-rebuild/ssl/example1.co.jp/svrkey-sample-empty.crt

@@ -32,9 +32,14 @@ kubectl delete -f k8s-php-dp-sv.yaml
 cd ~/Documents/Kubernetes/k8s-php-720-mac/8.apache-rebuild
 kubectl delete -f k8s-apache-sv.yaml
 
+#### ＜nuxt削除＞
+##### nuxtイメージ削除
+cd ~/Documents/Kubernetes/k8s-php-720-mac/9.nuxt-rebuild
+kubectl delete -f k8s-nuxt-sv.yaml
+
 #### ＜mailsv削除＞
 ##### mailsvイメージ削除
-cd ~/Documents/Kubernetes/k8s-php-720-mac/9.mailsv-rebuild
+cd ~/Documents/Kubernetes/k8s-php-720-mac/10.mailsv-rebuild
 kubectl delete -f ./k8s-mailsv-sv.yaml
 
 #### ＜DBのpvc削除＞
@@ -61,7 +66,7 @@ kubectl delete -f 2.PersistentVolumeClaim.yaml
 #### sslの鍵削除 ※HTTPSを使用する際は実施
 ##### kubectl create secret tls example1.co.jp
 
-cd ~/Documents/Kubernetes/k8s-php-720-mac/10.ingress
+cd ~/Documents/Kubernetes/k8s-php-720-mac/11.ingress
 #### Ingressの削除
 kubectl delete -f 80.ingress.yaml
 
