@@ -19,12 +19,17 @@ k8s-php-720-mac/
 　┣6.php7-rebuild/・・・php-fpm(php7)のコンテナ、service、deployment等を作成するyaml等  
 　┣7.php5-rebuild/・・・php-fpm(php5)のコンテナ、service、deployment等を作成するyaml等  
 　┣8.apache-rebuild/・・・apacheのコンテナ、service、deployment等を作成するyaml等  
-　┣9.mailsv-rebuild/・・・postfixのコンテナ、service、deployment等を作成するyaml等  
-　┣10.ingress/・・・ingressのyaml等  
+　┣9.nuxt-rebuild/・・・nuxtのコンテナ、service、deployment等を作成するyaml等  
+　┣10.mailsv-rebuild/・・・postfixのコンテナ、service、deployment等を作成するyaml等  
+　┣11.ingress/・・・ingressのyaml等  
 　┣k8s-php-720-all-build.sh・・・php-720のk8sコンテナを一斉に作成するシェル  
 　┣k8s-php-720-all-remove.sh・・・php-720のk8sコンテナを一斉に削除するシェル  
-　┣kube-db-proxy.bat・・・podのDBへDBクライアント（A5等）から接続する為のポートフォワード起動  
-　┣kubeproxy.bat・・・kubernetesダッシュボードへアクセスする為のproxyを実行するバッチ  
+　┣kube-mysql-proxy.sh・・・podのMySQLへDBクライアント（A5等）から接続する為のポートフォワード起動  
+　┣kube-psql-proxy.sh・・・podのpostgreSQLへDBクライアント（A5等）から接続する為のポートフォワード起動  
+　┣kube-db-proxy.sh・・・kube-mysql-proxy.shとkube-psql-proxy.shを起動するスクリプト  
+　┣kube-db-proxy.app・・・kube-db-proxy.shを起動するアプリ  
+　┣kubeproxy.sh・・・kubernetesダッシュボードへアクセスする為のproxyを実行するスクリプト  
+　┣kubeproxy.app・・・kubeproxy.shを起動するアプリ  
 　┗ReadMe.md・・・使い方等々の説明  
 
 __**************************************************************************************__  
