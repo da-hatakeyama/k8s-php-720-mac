@@ -1,5 +1,5 @@
 __**************************************************************************************__  
-__*　Docker for Windows におけるLAPP環境構築__  
+__*　Docker for Mac におけるLAPP環境構築__  
 __**************************************************************************************__  
   
   
@@ -10,7 +10,7 @@ __******************************************************************************
 __*　ファイル構成__  
 __**************************************************************************************__  
 
-php-720/  
+k8s-php-720-mac/  
 　┣1.db-disk/・・・DBの永続ボリュームを作成するyaml等  
 　┣2.src-deploy-disk/・・・srcの永続ボリュームを作成するyaml等  
 　┣3.psql-rebuild/・・・postgreSQLのコンテナ、service、deployment等を作成するyaml等  
@@ -33,68 +33,41 @@ __******************************************************************************
 
 【環境要件】  
 ◆OS  
-・Windows10 Pro(x64)  
+・macOS Catalina 10.15.1  
 
 ◆ソフトウェア  
-・Docker for Windows  
-・Ubuntu 18.04 LTS  
+・Docker for Mac 2.1.0.5  
+・Homebrew 2.2.2  
+・skaffold 1.1.0  
 
 __**************************************************************************************__  
 __*　kubernetesを動かす基盤となるソフトウェアのインストール（全てUbuntu 18.04 LTSで実施）__  
 __*　※ 1回だけ実施すればよい。__  
 __**************************************************************************************__  
 
-#### # k8s-php-720のフォルダの中身を「C:\k8s\php-720」へ配置する。
+#### # k8s-php-720のフォルダの中身を「~/Documents/Kubernetes/k8s-php-720-mac」へ配置する。
 
-#### # Docker for Windowsをインストールし、設定画面でkubernetesを有効にする。
+#### # Docker for Macをインストールし、設定画面でkubernetesを有効にする。
 
 以下をチェックON  
 ・Enable Kubernetes  
 ・Deploy Docker Stack to Kubernetes by default  
 ・Show system containers  
 
-#### # Docker for Windowsの設定で、WSLから使えるようにする。
-Setting画面からGeneralタブを開き、Expose daemon on tcp://localhost:2375 without TLSにチェックを入れる。
-
-#### # Docker for Windowsの設定で、Shared DrivesのCにチェックを入れる
-
-#### # WSLでskaffoldインストール
-brew install skaffold  
-
-curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64  
-sudo chmod +x skaffold  
-sudo mv skaffold /usr/local/bin  
-
-#### # WSL(Bash on Windows)でDockerを使用する
+#### # ターミナルでHomebrewをインストール（未インストールの場合のみ）
 ##### ＜参考＞
-##### # https://qiita.com/yoichiwo7/items/0b2aaa3a8c26ce8e87fe
-##### # https://medium.com/@XanderGrzy/developing-for-docker-kubernetes-with-windows-wsl-9d6814759e9f
-##### # https://www.myzkstr.com/archives/888
+##### # https://brew.sh/index_ja
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"  
 
-#### # Dockerインストール (Communityエディション)
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic test"
-sudo apt update
-sudo apt install docker-ce
-
-#### # dockerホストの登録
-echo "export DOCKER_HOST=tcp://127.0.0.1:2375" >> ~/.bash_profile  
-source ~/.bash_profile  
+#### # ターミナルでskaffoldインストール
+##### ＜参考＞
+##### # https://qiita.com/yakisuzu/items/caf5557ba059bb88f0fe
+brew install skaffold  
 
 #### # kuberctlインストール
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -   
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list  
 sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni  
-
-#### # WSLのkuberctlの接続先を、Docker for WIndowsのkubernetes環境へ向ける
-
-docker ps --no-trunc | grep 'advertise-address='  
-##### # 上記コマンドの実行結果で、「--secure-port=」以降のポートを確認。以下コマンドの[PORT]へ組み込んで実行
-kubectl config set-cluster docker-desktop-cluster --server=https://localhost:[PORT]  
-
-mv ~/.kube/config ~/.kube/config_back  
-ln -s /mnt/c/Users/<ユーザ名>/.kube/config ~/.kube/config  
 
 #### # ダッシュボードインストール（1回だけ実施すればよい）
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml  
@@ -115,7 +88,7 @@ kubectl -n kube-system describe secret default
 ##### # 以下のコマンドの[TOKEN]へ取得した認証トークンを設定する。
 ##### # kubectl config set-credentials docker-desktop --token="[TOKEN]"
 
-#### # ダッシュボードのサインインの画面で、C:\Users\[ユーザ名]\.kube\configを指定するとサインイン出来る。
+#### # ダッシュボードのサインインの画面で、~\.kube\configを指定するとサインイン出来る。
 
 
 __**************************************************************************************__  
@@ -129,7 +102,7 @@ __******************************************************************************
 __*******************************************__  
 __*　スクリプトで実行する場合__  
 __*******************************************__  
-cd /Users/tadanobu/Documents/Kubernetes/php-720  
+cd ~/Documents/Kubernetes/k8s-php-720-mac  
 ./k8s-php-720-all-build.sh  
 
 __※スクリプトで実行する場合は、以下「手動で実行する場合」は実施不要__
@@ -157,7 +130,7 @@ kubectl get namespace
 kubectl config current-context  
 ##### # 上記コマンドで表示されたコンテキスト名を、以下のコマンドset-contextの次に組み込む。  
 ##### # namespaceには、切り替えたいnamespaceを設定する。  
-kubectl config set-context docker-desktop --namespace=php-720  
+kubectl config set-context docker-desktop --namespace=k8s-php-720-mac  
 
 #### # コンテキストの向き先確認
 kubectl config get-contexts  
@@ -168,7 +141,7 @@ kubectl config get-contexts
 ##### # https://systemkd.blogspot.com/2018/02/docker-for-mac-kubernetes-ec-cube_12.html  
 
 #### # PersistentVolumeClaimの構築
-cd /Users/tadanobu/Documents/Kubernetes/php-720/1.db-disk  
+cd ~/Documents/Kubernetes/k8s-php-720-mac/1.db-disk  
 kubectl apply -f 1.PersistentVolume.yaml  
 kubectl apply -f 2.PersistentVolumeClaim.yaml  
 
@@ -189,7 +162,7 @@ kubectl apply -f 3.php-apache-psql-secret.yaml
 kubectl get pod  
 
 #### ＜src-deployのpvc構築＞
-cd /Users/tadanobu/Documents/Kubernetes/php-720/2.src-deploy-disk  
+cd ~/Documents/Kubernetes/k8s-php-720-mac/2.src-deploy-disk  
 
 #### # PersistentVolumeの構築
 kubectl apply -f 1.PersistentVolume.yaml  
@@ -212,41 +185,41 @@ docker images
 
 
 #### ＜php-srcのボリュームへチェックアウト＞
-##### # /Users/tadanobu/Documents/Kubernetes/php-720/2.src-deploy-disk\storage
+##### # ~/Documents/Kubernetes/k8s-php-720-mac/2.src-deploy-disk\storage
 ##### # ※ ここで各プロジェクトのソースコードをチェックアウトする
 
 #### ＜postgreSQL構築＞
 ##### # postgreSQLイメージビルド
-cd /Users/tadanobu/Documents/Kubernetes/php-720/3.psql-rebuild  
+cd ~/Documents/Kubernetes/k8s-php-720-mac/3.psql-rebuild  
 ./skaffold_run.sh  
 
 #### ＜MySQL構築＞
 ##### # MySQLイメージビルド
-cd /Users/tadanobu/Documents/Kubernetes/php-720/4.mysql-rebuild  
+cd ~/Documents/Kubernetes/k8s-php-720-mac/4.mysql-rebuild  
 ./skaffold_run.sh  
 
 #### ＜DNS(bind)構築＞
 ##### # DNS(bind)イメージビルド
-cd /Users/tadanobu/Documents/Kubernetes/php-720/5.dns  
+cd ~/Documents/Kubernetes/k8s-php-720-mac/5.dns  
 ./skaffold_run.sh  
 
 #### ＜php構築＞
 ##### # php7イメージビルド
-cd /Users/tadanobu/Documents/Kubernetes/php-720/6.php7-rebuild
+cd ~/Documents/Kubernetes/k8s-php-720-mac/6.php7-rebuild
 ./skaffold_run.sh  
 
 ##### # php5イメージビルド
-cd /Users/tadanobu/Documents/Kubernetes/php-720/7.php5-rebuild
+cd ~/Documents/Kubernetes/k8s-php-720-mac/7.php5-rebuild
 ./skaffold_run.sh  
 
 #### ＜apache構築＞
 ##### # apacheイメージビルド
-cd /Users/tadanobu/Documents/Kubernetes/php-720/8.apache-rebuild
+cd ~/Documents/Kubernetes/k8s-php-720-mac/8.apache-rebuild
 ./skaffold_run.sh  
 
 #### ＜mailsv構築＞
 ##### # mailsvイメージビルド
-cd /Users/tadanobu/Documents/Kubernetes/php-720/9.mailsv-rebuild  
+cd ~/Documents/Kubernetes/k8s-php-720-mac/9.mailsv-rebuild  
 kubectl apply -f ./k8s-mailsv-sv.yaml  
 
 #### ＜ingressを構築＞
@@ -254,7 +227,7 @@ kubectl apply -f ./k8s-mailsv-sv.yaml
 ##### # 参考サイト：https://kubernetes.github.io/ingress-nginx/deploy/
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml  
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/cloud-generic.yaml  
-cd /Users/tadanobu/Documents/Kubernetes/php-720/10.ingress  
+cd ~/Documents/Kubernetes/k8s-php-720-mac/10.ingress  
 
 #### sslの鍵登録 ※HTTPSを使用する際は実施
 ##### # kubectl create secret tls example1.co.jp --key ../8.apache-rebuild/ssl/example1.co.jp/svrkey-sample-empty.key --cert ../8.apache-rebuild/ssl/example1.co.jp/svrkey-sample-empty.crt
@@ -280,6 +253,9 @@ kubectl config set-context docker-desktop --namespace=php-720
 #### # コンテキストの向き先確認
 kubectl config get-contexts  
 
+#### # コンテキストの削除
+kubectl config delete-context docker-for-desktop  
+
 #### # pod一覧
 kubectl get pod  
 
@@ -304,7 +280,7 @@ __*　トラブルシューティング__
 __**************************************************************************************__  
 
 #### # kubectl get podとして「The connection to the server localhost:6445 was refused - did you specify the right host or port?」と出た場合
-##### # Docker for Windowsの設定画面を開き、左下がKubernetes is runningとなってから再度試す。それでもダメな場合は以下を試す。
+##### # Docker for Macの設定画面を開き、左下がKubernetes is runningとなってから再度試す。それでもダメな場合は以下を試す。
 docker ps --no-trunc | grep 'advertise-address='  
 ##### # 「--secure-port=」以降のポートを確認。以下コマンドの[PORT]へ組み込んで実行
 kubectl config set-cluster docker-desktop-cluster --server=https://localhost:[PORT]  
