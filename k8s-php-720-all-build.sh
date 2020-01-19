@@ -64,7 +64,7 @@ cd ~/Documents/Kubernetes/k8s-php-720-mac/9.nuxt-rebuild
 #### ＜mailsv構築＞
 ##### mailsvイメージビルド
 cd ~/Documents/Kubernetes/k8s-php-720-mac/10.mailsv-rebuild
-kubectl apply -f ./k8s-mailsv-sv.yaml
+kubectl apply -f ./k8s-sv.yaml
 
 #### ＜ingressを構築＞
 ##### Ingress Controllerの作成

@@ -6,41 +6,41 @@ kubectl config set-context docker-desktop --namespace=php-720
 #### ＜postgreSQL削除＞
 ##### postgreSQLイメージ削除
 cd ~/Documents/Kubernetes/k8s-php-720-mac/3.psql-rebuild
-kubectl delete -f k8s-db-sv.yaml
+kubectl delete -f k8s-sv.yaml
 
 #### ＜MySQL削除＞
 ##### MySQLイメージ削除
 cd ~/Documents/Kubernetes/k8s-php-720-mac/4.mysql-rebuild
-kubectl delete -f k8s-db-sv.yaml
+kubectl delete -f k8s-sv.yaml
 
 #### ＜DNS(bind)削除＞
 ##### DNS(bind)イメージ削除
 cd ~/Documents/Kubernetes/k8s-php-720-mac/5.dns
-kubectl delete -f k8s-dns-sv.yaml
+kubectl delete -f k8s-sv.yaml
 
 #### ＜php7削除＞
 ##### php7イメージ削除
 cd ~/Documents/Kubernetes/k8s-php-720-mac/6.php7-rebuild
-kubectl delete -f k8s-php-dp-sv.yaml
+kubectl delete -f k8s-sv.yaml
 
 ##### php5イメージ削除
 cd ~/Documents/Kubernetes/k8s-php-720-mac/7.php5-rebuild
-kubectl delete -f k8s-php-dp-sv.yaml
+kubectl delete -f k8s-sv.yaml
 
 #### ＜apache削除＞
 ##### apacheイメージ削除
 cd ~/Documents/Kubernetes/k8s-php-720-mac/8.apache-rebuild
-kubectl delete -f k8s-apache-sv.yaml
+kubectl delete -f k8s-sv.yaml
 
 #### ＜nuxt削除＞
 ##### nuxtイメージ削除
 cd ~/Documents/Kubernetes/k8s-php-720-mac/9.nuxt-rebuild
-kubectl delete -f k8s-nuxt-sv.yaml
+kubectl delete -f k8s-sv.yaml
 
 #### ＜mailsv削除＞
 ##### mailsvイメージ削除
 cd ~/Documents/Kubernetes/k8s-php-720-mac/10.mailsv-rebuild
-kubectl delete -f ./k8s-mailsv-sv.yaml
+kubectl delete -f ./k8s-sv.yaml
 
 #### ＜DBのpvc削除＞
 cd ~/Documents/Kubernetes/k8s-php-720-mac/1.db-disk
