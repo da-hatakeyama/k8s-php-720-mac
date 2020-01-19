@@ -26,6 +26,13 @@ spec:
 # HTTPSの場合はsecretNameを指定(k8sへ登録した証明書の名称を指定する)
 #    secretName: example2.co.jp
   rules:
+  - host: nuxtapp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: apache-sv
+          servicePort: 80
   - host: laravel-project.hatake.test
     http:
       paths:

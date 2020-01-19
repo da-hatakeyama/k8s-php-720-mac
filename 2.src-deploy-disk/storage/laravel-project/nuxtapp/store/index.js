@@ -63,6 +63,9 @@ export const mutations = {
 export const actions = {
   async nuxtServerInit(ctx, req) {
     console.log("nuxtServerInit")
+    if (process.env.GENERATE === '1') {
+      return
+    }
     // セッションがあれば、storeに詰める
     console.log(req.ssrContext.req.session)
     if (req.ssrContext.req.session && req.ssrContext.req.session.authUser) {
