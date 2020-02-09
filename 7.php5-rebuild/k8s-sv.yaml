@@ -33,6 +33,7 @@ spec:
           - "-c"
           - |
             /usr/local/bin/dns-regist.sh && \
+            /etc/init.d/blackfire-agent restart && \
             php-fpm
         ports:
         - containerPort: 9000

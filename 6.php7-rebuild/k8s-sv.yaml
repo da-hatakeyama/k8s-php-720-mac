@@ -40,6 +40,7 @@ spec:
             ln -s /mnt/src/laravel-project/laravelapp/public/js/vue/entry-client.js /mnt/src/laravel-project/www/public/vue/js/entry-client.js && \
             ln -s /mnt/src/laravel-project/laravelapp/public/css/app.css /mnt/src/laravel-project/www/public/vue/css/app.css && \
             /usr/local/bin/dns-regist.sh && \
+            /etc/init.d/blackfire-agent restart && \
             php-fpm
         ports:
         - containerPort: 9000

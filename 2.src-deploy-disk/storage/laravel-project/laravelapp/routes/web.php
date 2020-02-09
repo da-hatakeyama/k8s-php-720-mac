@@ -21,3 +21,4 @@ Auth::routes();
 Route::get('/vue/test', 'VueController@test');
 Route::get('/vue/{url?}', 'VueController');
 Route::get('/vue/packages/{url?}', 'VueController');
+Route::post('/vue/test', 'VueController@test');

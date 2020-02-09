@@ -272,8 +272,8 @@ kubectl get pod
 #### # init-data.shの実行
 ##### # init-data.shはpod起動時に自動で実行される。pod稼働中に必要になった場合に以下を実行する。
 kubectl exec -it [podの名称] /bin/bash  
-kubectl exec -it php-fpm-75cc55c8d5-5x4hg /bin/bash  
-kubectl exec -it apache-78c5cb56c8-tqjmr /bin/bash  
+kubectl exec -it php-fpm-7777b55996-n8s88 /bin/bash  
+kubectl exec -it apache-64999bb6b4-lt4j4 /bin/bash  
 kubectl exec -it nuxt-8699dfcfc4-6kmt9 /bin/bash  
 kubectl exec -it postgresql-0 /bin/bash  
 kubectl exec -it postfix-77d69ff664-5drvf /bin/bash  

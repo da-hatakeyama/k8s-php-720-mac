@@ -1871,12 +1871,123 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     data: Array
   },
+  data: function data() {
+    return {
+      /*colorMaterial: {} */
+
+      /*{
+          1 : {
+              1 : {
+                  2 : true
+              },
+              2 : {
+                  3 : false
+              }
+          },
+          2 : {
+              3 : {
+                  4 : false
+              },
+              4 : {
+                  5 : false
+              }
+          }
+      },*/
+      datas: {
+        1: {
+          "series_name": "Vida",
+          "color_id": {
+            1: {
+              "color_name": "ウォールナット",
+              "material_id": {
+                2: {
+                  "material_name": "ウォールナット材"
+                }
+              }
+            },
+            2: {
+              "color_name": "オーク",
+              "material_id": {
+                3: {
+                  "material_name": "ナチュラルオーク材"
+                }
+              }
+            }
+          }
+        },
+        2: {
+          "series_name": "Solid",
+          "color_id": {
+            3: {
+              "color_name": "ホワイトオーク",
+              "material_id": {
+                4: {
+                  "material_name": "ホワイトオーク材",
+                  "checked": true
+                }
+              }
+            },
+            4: {
+              "color_name": "ダークオーク",
+              "material_id": {
+                5: {
+                  "material_name": "ダークオーク材"
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  },
+
+  /*
+  created() {
+    //console.log('created')
+    this.colorMaterial = {}
+    for (const sKey in this.datas) {
+        this.colorMaterial[sKey] = {}
+        for (const cKey in this.datas[sKey].color_id) {
+            this.colorMaterial[sKey][cKey] = {}
+            for (const mKey in this.datas[sKey].color_id[cKey].material_id) {
+                if (this.datas[sKey].color_id[cKey].material_id[mKey].checked) {
+                    this.colorMaterial[sKey][cKey][mKey] = true
+                } else {
+                    this.colorMaterial[sKey][cKey][mKey] = false
+                }
+            }
+        }
+    }
+    //console.log(this.colorMaterial)
+  },*/
   mounted: function mounted() {
-    console.log('Component mounted.');
+    console.log('Component mounted.'); //console.log(this.colorMaterial)
+
+    console.log(this.datas);
+  },
+  methods: {
+    onClick: function onClick() {
+      console.log("click");
+      console.log(this.datas); //console.log(this.colorMaterial)
+    }
   }
 });
 
@@ -8956,7 +9067,111 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", [_vm._v(_vm._s(val.key3))])
               ])
-            })
+            }),
+            _vm._v("\n                test\n                "),
+            _c(
+              "form",
+              { attrs: { action: "/www/vue/test", method: "POST" } },
+              [
+                _vm._l(_vm.datas, function(sVal, sKey) {
+                  return [
+                    _vm._l(sVal.color_id, function(cVal, cKey) {
+                      return [
+                        _vm._l(cVal.material_id, function(mVal, mKey) {
+                          return [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value:
+                                    _vm.datas[sKey].color_id[cKey].material_id[
+                                      mKey
+                                    ].checked,
+                                  expression:
+                                    "datas[sKey].color_id[cKey].material_id[mKey].checked"
+                                }
+                              ],
+                              attrs: {
+                                type: "checkbox",
+                                name:
+                                  "color_material[" + cKey + "][" + mKey + "]"
+                              },
+                              domProps: {
+                                checked: Array.isArray(
+                                  _vm.datas[sKey].color_id[cKey].material_id[
+                                    mKey
+                                  ].checked
+                                )
+                                  ? _vm._i(
+                                      _vm.datas[sKey].color_id[cKey]
+                                        .material_id[mKey].checked,
+                                      null
+                                    ) > -1
+                                  : _vm.datas[sKey].color_id[cKey].material_id[
+                                      mKey
+                                    ].checked
+                              },
+                              on: {
+                                click: _vm.onClick,
+                                change: function($event) {
+                                  var $$a =
+                                      _vm.datas[sKey].color_id[cKey]
+                                        .material_id[mKey].checked,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.datas[sKey].color_id[cKey]
+                                            .material_id[mKey],
+                                          "checked",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.datas[sKey].color_id[cKey]
+                                            .material_id[mKey],
+                                          "checked",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(
+                                      _vm.datas[sKey].color_id[cKey]
+                                        .material_id[mKey],
+                                      "checked",
+                                      $$c
+                                    )
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(cVal.color_name) +
+                                " " +
+                                _vm._s(mVal.material_name) +
+                                "\n                            "
+                            )
+                          ]
+                        })
+                      ]
+                    })
+                  ]
+                }),
+                _vm._v(" "),
+                _c("input", { attrs: { type: "submit", value: "送信" } })
+              ],
+              2
+            )
           ],
           2
         )
